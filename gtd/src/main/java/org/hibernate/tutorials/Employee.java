@@ -1,5 +1,7 @@
 package org.hibernate.tutorials;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -38,6 +40,8 @@ public class Employee {
 
     @Id
     @Column(name = "EMP_ID")
+    @GeneratedValue(generator="increment")
+    @GenericGenerator(name="increment", strategy = "increment")
     public Long getEmpId() {
         return empId;
     }

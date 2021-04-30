@@ -9,8 +9,10 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
+import org.hibernate.tutorials.bean.ShortEmpInfo;
 import org.junit.Test;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -55,20 +57,7 @@ public class AppTest1 extends TestCase{
 
 
 
-    @SuppressWarnings({ "unchecked" })
-    public void testQuery1() {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        List result = session.createQuery( "from Department where deptId=10" ).list();
-        for ( Department dept : (List<Department>) result ) {
-            System.out.println( "Department (" + dept.getDeptId() + ") : " + dept.getName()  + "," + dept.getEmployees().size());
-            for(Employee emp : dept.getEmployees()){
-                System.out.println("Employee ("+emp.getEmpName()+", "+emp.getEmpNo() +")");
-            }
-        }
-        session.getTransaction().commit();
-        session.close();
-    }
+
 
     @SuppressWarnings({ "unchecked" })
     public void testUpdate() {
@@ -88,10 +77,28 @@ public class AppTest1 extends TestCase{
     public void testDel() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List result = session.createQuery( "from Department where deptId=45" ).list();
-        for ( Department dept : (List<Department>) result ) {
+        Query<Department> query = session.createQuery( "from Department where deptNo=:deptNo" );
+        query.setParameter("deptNo", "XX-D10");
+        Department dept = query.getSingleResult();
+
+        if (dept != null) {
             System.out.println( "Department (" + dept.getDeptId() + ") : " + dept.getName() );
             session.delete(dept);
+        }
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    public void testQuery1() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List result = session.createQuery( "from Department where deptId=10" ).list();
+        for ( Department dept : (List<Department>) result ) {
+            System.out.println( "Department (" + dept.getDeptId() + ") : " + dept.getName()  + "," + dept.getEmployees().size());
+            for(Employee emp : dept.getEmployees()){
+                System.out.println("Employee ("+emp.getEmpName()+", "+emp.getEmpNo() +")");
+            }
         }
         session.getTransaction().commit();
         session.close();
@@ -164,7 +171,127 @@ public class AppTest1 extends TestCase{
             System.out.println("    Emp Name: " + emp[2]);
         }
 
+        session.getTransaction().commit();
+        session.close();
+    }
 
+    @SuppressWarnings({ "unchecked" })
+    public void testQuery5() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String sql = "Select new "+ ShortEmpInfo.class.getName()
+                +"(e.empId, e.empNo, e.empName)" +
+                " from " + Employee.class.getName() + " e ";
+
+        Query<ShortEmpInfo> query = session.createQuery(sql);
+
+        List<ShortEmpInfo> employees = query.getResultList();
+
+        for (ShortEmpInfo emp : employees) {
+            System.out.println("Emp: " + emp.getEmpNo() + " : "
+                    + emp.getEmpName());
+        }
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    public void testQuery6() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        String sql = "Select max(e.empId) from " + Employee.class.getName() + " e ";
+        Query<Number> query = session.createQuery(sql);
+        Number value = query.getSingleResult();
+        System.out.println(value);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    public void testPersist() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query<Department> query = session.createQuery( "from Department where deptNo=:deptNo" );
+        query.setParameter("deptNo", "D10");
+        Department department = query.getSingleResult();
+        System.out.println(department);
+
+        if(department != null) {
+            Employee emp = new Employee();
+            emp.setEmpName("Name New");
+            emp.setEmpNo("E-NEW");
+            emp.setJob("Coder");
+            emp.setSalary(1000f);
+            emp.setManager(null);
+            emp.setHideDate(new Date());
+            emp.setDepartment(department);
+
+            session.persist(emp);
+        }
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    public void testFlush() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query<Employee> query = session.createQuery( "from Employee where empNo=:empNo" );
+        query.setParameter("empNo", "E-NEW");
+        Employee employee = query.getSingleResult();
+        System.out.println(employee);
+
+        employee.setJob("Developer");
+        System.out.println(employee.getJob());
+        session.flush();
+
+        employee.setJob("Manager");
+        System.out.println(employee.getJob());
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    public void testTransientObject() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query<Employee> query = session.createQuery( "from Employee where empNo=:empNo" );
+        query.setParameter("empNo", "E-NEW");
+        Employee emp = query.getSingleResult();
+        Timekeeper tk1 = new Timekeeper();
+
+        tk1.setEmployee(emp);
+        tk1.setInOut(Timekeeper.IN);
+        tk1.setDateTime(new Date());
+
+        /*System.out.println(session.contains(tk1));
+        session.persist(tk1);
+        System.out.println("- tk1.getTimekeeperId() = " + tk1.getTimekeeperId());
+
+        System.out.println(session.contains(tk1));
+        //主動刷新到數據庫
+        session.flush();
+        System.out.println("- tk1.getTimekeeperId() = " + tk1.getTimekeeperId());
+        */
+
+        // save() very similar to persist()
+        // save() return ID, persist() return void.
+        // Hibernate assign ID value to 'tk2', no action with DB
+        // And return ID of 'tk2'.
+        Serializable id = session.save(tk1);
+        System.out.println("- id = " + id);
+        session.flush();
+
+        String timekeeperId = tk1.getTimekeeperId();
+        System.out.println("- timekeeperId = " + timekeeperId);
 
         session.getTransaction().commit();
         session.close();
