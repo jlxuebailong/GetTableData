@@ -21,12 +21,11 @@
  * 51 Franklin Street, Fifth Floor
  * Boston, MA  02110-1301  USA
  */
-package org.hibernate.tutorials;
+package org.hibernate.tutorials.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -87,7 +86,7 @@ public class Department {
 
 	public void setDeptNo(String deptNo) {
 		this.deptNo = deptNo;
-	}//原文出自【易百教程】，商业转载请联系作者获得授权，非商业请保留原文链接：https://www.yiibai.com/hibernate/hibernate-quick-guide.html
+	}
 
 
 

@@ -1,0 +1,21 @@
+#IDENTITY
+@Entity(name = "identityIdentifier")
+public static class IdentityIdentifier {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+}
+
+#SEQUENCE
+@Entity(name = "sequenceIdentifier")
+public static class SequenceIdentifier {
+    @Id
+    @GenericGenerator(name = "sequence", strategy = "sequence", parameters = {
+            @org.hibernate.annotations.Parameter(name = "sequenceName", value = "sequence"),
+            @org.hibernate.annotations.Parameter(name = "allocationSize", value = "1"),
+    })
+    @GeneratedValue(generator = "sequence", strategy=GenerationType.SEQUENCE)
+    private Long id;
+}
+

@@ -10,7 +10,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import org.hibernate.tutorials.bean.ShortEmpInfo;
-import org.junit.Test;
+import org.hibernate.tutorials.entity.Department;
+import org.hibernate.tutorials.entity.Employee;
+import org.hibernate.tutorials.entity.Timekeeper;
 
 import java.io.Serializable;
 import java.util.Date;

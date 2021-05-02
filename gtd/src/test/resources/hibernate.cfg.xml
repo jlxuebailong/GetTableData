@@ -35,10 +35,10 @@
         <property name="hbm2ddl.auto">validate</property>
 
         <!-- Names the annotated entity class -->
-        <mapping class="org.hibernate.tutorials.Department"/>
-        <mapping class="org.hibernate.tutorials.Employee"/>
-        <mapping class="org.hibernate.tutorials.SalaryGrade"/>
-        <mapping class="org.hibernate.tutorials.Timekeeper"/>
+        <mapping class="org.hibernate.tutorials.entity.Department"/>
+        <mapping class="org.hibernate.tutorials.entity.Employee"/>
+        <mapping class="org.hibernate.tutorials.entity.SalaryGrade"/>
+        <mapping class="org.hibernate.tutorials.entity.Timekeeper"/>
 
     </session-factory>
 

@@ -1,4 +1,4 @@
-package org.hibernate.tutorials;
+package org.hibernate.tutorials.entity;
 
 import java.util.Date;
 
