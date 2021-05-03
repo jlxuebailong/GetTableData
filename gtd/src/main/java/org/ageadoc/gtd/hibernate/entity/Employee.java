@@ -1,4 +1,4 @@
-package org.hibernate.tutorials.entity;
+package org.ageadoc.gtd.hibernate.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -106,7 +106,7 @@ public class Employee {
         this.salary = salary;
     }
 
-    @Column(name = "IMAGE", length = 1111111, nullable = true)
+    @Column(name = "IMAGE", nullable = true, columnDefinition = "image")
     @Lob
     public byte[] getImage() {
         return image;

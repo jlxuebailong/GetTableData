@@ -1,15 +1,17 @@
-package org.hibernate.tutorials;
+package org.ageadoc.gtd.hibernate;
 
 import javax.persistence.GenerationType;
 
 public class EntityPrimary extends EntityField{
     private Boolean isPrimary = true;
     private GenerationType strategyType;
+    private String sequenceName;
 
-    public EntityPrimary(ColumnType columnType, String name, String columnName, GenerationType strategyType){
+    public EntityPrimary(ColumnType columnType, String name, String columnName, GenerationType strategyType, String sequenceName){
         super(columnType, name, columnName, false);
         this.isPrimary = true;
         this.strategyType = strategyType;
+        this.sequenceName = sequenceName;
     }
 
     public Boolean getPrimary() {
@@ -26,5 +28,13 @@ public class EntityPrimary extends EntityField{
 
     public void setStrategyType(GenerationType strategyType) {
         this.strategyType = strategyType;
+    }
+
+    public String getSequenceName() {
+        return sequenceName;
+    }
+
+    public void setSequenceName(String sequenceName) {
+        this.sequenceName = sequenceName;
     }
 }

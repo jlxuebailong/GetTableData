@@ -1,4 +1,4 @@
-package org.hibernate.tutorials.bean;
+package org.ageadoc.gtd.hibernate.bean;
 
 public class ShortEmpInfo {
 

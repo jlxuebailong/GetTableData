@@ -1,19 +1,17 @@
-package org.hibernate.tutorials;
+package org.ageadoc.gtd.hibernate;
 
 import static org.junit.Assert.assertTrue;
 
 import junit.framework.TestCase;
+import org.ageadoc.gtd.hibernate.entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
-import org.hibernate.tutorials.bean.ShortEmpInfo;
-import org.hibernate.tutorials.entity.Department;
-import org.hibernate.tutorials.entity.Employee;
-import org.hibernate.tutorials.entity.NewEmployeeEntity;
-import org.hibernate.tutorials.entity.Timekeeper;
+import org.ageadoc.gtd.hibernate.bean.ShortEmpInfo;
+
 
 import java.io.Serializable;
 import java.util.Date;
@@ -212,16 +210,7 @@ public class AppTest1 extends TestCase{
         session.getTransaction().commit();
         session.close();
     }
-    public void testQuery7() {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        List result = session.createQuery( "from NewEmployeeEntity" ).list();
-        for ( NewEmployeeEntity entity : (List<NewEmployeeEntity>) result ) {
-            System.out.println( entity.getIdNum()+", Fname (" + entity.getFname() + ") : " + entity.getLname()  + "," + entity.getMinit());
-        }
-        session.getTransaction().commit();
-        session.close();
-    }
+
     @SuppressWarnings({ "unchecked" })
     public void testPersist() {
         Session session = sessionFactory.openSession();
@@ -309,5 +298,47 @@ public class AppTest1 extends TestCase{
         session.close();
     }
 
+    public void testNewEmployeeEntity1() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        NewEmployeeEntity entity = new NewEmployeeEntity();
+        entity.setFname("yyds");
+        entity.setLname("yyds");
+        entity.setMinit("F");
+        entity.setNnn("yyds");
+        session.persist(entity);
+        session.getTransaction().commit();
+        session.close();
+    }
 
+    public void testNewEmployeeEntity2() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List result = session.createQuery( "from NewEmployeeEntity" ).list();
+        for ( NewEmployeeEntity entity : (List<NewEmployeeEntity>) result ) {
+            System.out.println( entity.getIdNum()+", Fname (" + entity.getFname() + ") : " + entity.getLname()  + "," + entity.getMinit());
+        }
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void testAddressEntity1() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Address address = new Address();
+        address.setAddress("哥哥在客厅打游戏");
+        session.persist(address);
+        session.getTransaction().commit();
+        session.close();
+    }
+    public void testAddressEntity2() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List result = session.createQuery( "from Address" ).list();
+        for ( Address entity : (List<Address>) result ) {
+            System.out.println( entity.getAddrId()+"," + entity.getAddress());
+        }
+        session.getTransaction().commit();
+        session.close();
+    }
 }

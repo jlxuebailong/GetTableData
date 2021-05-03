@@ -1,4 +1,4 @@
-package org.hibernate.tutorials.entity;
+package org.ageadoc.gtd.hibernate.entity;
 
 import java.util.Date;
 

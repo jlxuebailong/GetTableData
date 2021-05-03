@@ -21,9 +21,12 @@
 
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>
+        <!--
+        <property name="hibernate.default_schema">dbo</property>
+        -->
 
         <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
+        <property name="dialect">org.hibernate.dialect.SQLServer2012Dialect</property>
 
         <!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
@@ -35,11 +38,12 @@
         <property name="hbm2ddl.auto">validate</property>
 
         <!-- Names the annotated entity class -->
-        <mapping class="org.hibernate.tutorials.entity.Department"/>
-        <mapping class="org.hibernate.tutorials.entity.Employee"/>
-        <mapping class="org.hibernate.tutorials.entity.SalaryGrade"/>
-        <mapping class="org.hibernate.tutorials.entity.Timekeeper"/>
-        <mapping class="org.hibernate.tutorials.entity.NewEmployeeEntity"/>
+        <mapping class="org.ageadoc.gtd.hibernate.entity.Department"/>
+        <mapping class="org.ageadoc.gtd.hibernate.entity.Employee"/>
+        <mapping class="org.ageadoc.gtd.hibernate.entity.SalaryGrade"/>
+        <mapping class="org.ageadoc.gtd.hibernate.entity.Timekeeper"/>
+        <mapping class="org.ageadoc.gtd.hibernate.entity.NewEmployeeEntity"/>
+        <mapping class="org.ageadoc.gtd.hibernate.entity.Address"/>
 
     </session-factory>
 

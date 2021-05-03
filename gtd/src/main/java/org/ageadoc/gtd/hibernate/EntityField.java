@@ -1,4 +1,4 @@
-package org.hibernate.tutorials;
+package org.ageadoc.gtd.hibernate;
 
 public class EntityField {
     private ColumnType columnType;
@@ -27,13 +27,16 @@ public class EntityField {
         switch (columnType.ordinal()){
             case 0:
             case 1:
-                break;
             case 2:
-                type = "Integer";
                 break;
             case 3:
+                type = "Integer";
+                break;
+            case 4:
                 type = "Long";
                 break;
+            default:
+                type = columnType.name();
         }
         return type;
     }

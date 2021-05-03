@@ -1,10 +1,12 @@
-package org.hibernate.tutorials;
+package org.ageadoc.gtd.hibernate;
 
 public enum ColumnType {
     CHAR,
+    NVARCHAR,
     VARCHAR,
     NUMBER,
-    BIGINT;
+    BIGINT,
+    IMAGE;
 
     private ColumnType() {
     }
