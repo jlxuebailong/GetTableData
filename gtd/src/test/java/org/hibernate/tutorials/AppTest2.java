@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.Test;
 
+import javax.persistence.GenerationType;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,8 +49,11 @@ public class AppTest2 extends TestCase {
         map.put("name", "testName");
 
         List<EntityField> fieldList = new ArrayList<>();
-        fieldList.add(new EntityField("String", "fname", "fname", true));
-        EntityField field2 = new EntityField("String", "lname", "lname", false);
+        fieldList.add(new EntityPrimary(ColumnType.NUMBER, "idNum", "id_num",   GenerationType.IDENTITY));
+        fieldList.add(new EntityField(ColumnType.VARCHAR, "fname", "fname", true));
+        fieldList.add(new EntityField(ColumnType.CHAR, "minit", "minit", true));
+        fieldList.add(new EntityField(ColumnType.CHAR, "nnn", "nnn", true));
+        EntityField field2 = new EntityField(ColumnType.VARCHAR, "lname", "lname", false);
         field2.setLength(100);
         fieldList.add(field2);
         map.put("fieldList", fieldList);

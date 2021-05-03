@@ -39,6 +39,7 @@
         <mapping class="org.hibernate.tutorials.entity.Employee"/>
         <mapping class="org.hibernate.tutorials.entity.SalaryGrade"/>
         <mapping class="org.hibernate.tutorials.entity.Timekeeper"/>
+        <mapping class="org.hibernate.tutorials.entity.NewEmployeeEntity"/>
 
     </session-factory>
 

@@ -12,6 +12,7 @@ import org.hibernate.query.Query;
 import org.hibernate.tutorials.bean.ShortEmpInfo;
 import org.hibernate.tutorials.entity.Department;
 import org.hibernate.tutorials.entity.Employee;
+import org.hibernate.tutorials.entity.NewEmployeeEntity;
 import org.hibernate.tutorials.entity.Timekeeper;
 
 import java.io.Serializable;
@@ -211,7 +212,16 @@ public class AppTest1 extends TestCase{
         session.getTransaction().commit();
         session.close();
     }
-
+    public void testQuery7() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List result = session.createQuery( "from NewEmployeeEntity" ).list();
+        for ( NewEmployeeEntity entity : (List<NewEmployeeEntity>) result ) {
+            System.out.println( entity.getIdNum()+", Fname (" + entity.getFname() + ") : " + entity.getLname()  + "," + entity.getMinit());
+        }
+        session.getTransaction().commit();
+        session.close();
+    }
     @SuppressWarnings({ "unchecked" })
     public void testPersist() {
         Session session = sessionFactory.openSession();
@@ -298,4 +308,6 @@ public class AppTest1 extends TestCase{
         session.getTransaction().commit();
         session.close();
     }
+
+
 }

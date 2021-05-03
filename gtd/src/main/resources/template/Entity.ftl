@@ -1,9 +1,6 @@
 package org.hibernate.tutorials.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "${TableName}"<#if IDColumnName??>, uniqueConstraints = { @UniqueConstraint(columnNames = { "${IDColumnName}" }) } </#if>)
@@ -14,7 +11,13 @@ public class ${ClassName} {
 </#list>
 
 <#list fieldList as field>
-    @Column(name = "${field.columnName}"<#if field.length??>, length = ${field.length}</#if>, nullable = ${field.nullable?string('true', 'false')})
+    <#if field.primary?? && field.primary>
+    @Id
+    <#if field.strategyType?? && field.strategyType.ordinal() == 2>
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    </#if>
+    </#if>
+    @Column(name = "${field.columnName}", nullable = ${field.nullable?string('true', 'false')}<#if field.length??>, length = ${field.length}</#if><#if field.columnType?? && field.columnType.ordinal() == 0 >, columnDefinition = "char"</#if>)
     public ${field.type} get${field.name?cap_first}() {
         return this.${field.name};
     }

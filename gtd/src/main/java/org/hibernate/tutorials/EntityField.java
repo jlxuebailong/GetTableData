@@ -1,25 +1,41 @@
 package org.hibernate.tutorials;
 
 public class EntityField {
-    private String type;
+    private ColumnType columnType;
     private String name;
     private String columnName;
     private Integer length;
     private Boolean nullable = true;
 
-    public EntityField(String type, String name, String columnName, Boolean nullable){
-        this.type = type;
+    public EntityField(ColumnType columnType, String name, String columnName, Boolean nullable){
+        this.columnType = columnType;
         this.name = name;
         this.columnName = columnName;
         this.nullable = nullable;
     }
 
-    public String getType() {
-        return type;
+    public ColumnType getColumnType() {
+        return columnType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setColumnType(ColumnType columnType) {
+        this.columnType = columnType;
+    }
+
+    public String getType() {
+        String type = "String";
+        switch (columnType.ordinal()){
+            case 0:
+            case 1:
+                break;
+            case 2:
+                type = "Integer";
+                break;
+            case 3:
+                type = "Long";
+                break;
+        }
+        return type;
     }
 
     public String getName() {
