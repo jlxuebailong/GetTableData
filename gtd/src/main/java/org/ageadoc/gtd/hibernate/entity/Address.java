@@ -9,6 +9,7 @@ public class Address {
 
     private Integer addrId;
     private String address;
+    private NewEmployee employee;
 
     @Id
     @SequenceGenerator(name = "sequence-generator",  sequenceName = "SEQ_ADDRESS", allocationSize = 1)
@@ -31,6 +32,13 @@ public class Address {
         this.address = address;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EMP_ID", nullable = false)
+    public NewEmployee getEmployee(){
+        return  this.employee;
+    }
 
-
+    public void setEmployee(NewEmployee employee){
+        this.employee = employee;
+    }
 }

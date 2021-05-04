@@ -42,7 +42,7 @@
         <mapping class="org.ageadoc.gtd.hibernate.entity.Employee"/>
         <mapping class="org.ageadoc.gtd.hibernate.entity.SalaryGrade"/>
         <mapping class="org.ageadoc.gtd.hibernate.entity.Timekeeper"/>
-        <mapping class="org.ageadoc.gtd.hibernate.entity.NewEmployeeEntity"/>
+        <mapping class="org.ageadoc.gtd.hibernate.entity.NewEmployee"/>
         <mapping class="org.ageadoc.gtd.hibernate.entity.Address"/>
 
     </session-factory>

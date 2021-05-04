@@ -1,16 +1,20 @@
 package org.ageadoc.gtd.hibernate.entity;
 
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "new_employees", uniqueConstraints = { @UniqueConstraint(columnNames = { "id_num" }) } )
-public class NewEmployeeEntity {
+@Table(name = "new_employees")
+public class NewEmployee {
 
     private Integer idNum;
     private String fname;
     private String minit;
     private String nnn;
     private String lname;
+    private Set<Address> addresses = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +63,12 @@ public class NewEmployeeEntity {
         this.lname = lname;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
+    public Set<Address> getAddresses() {
+        return addresses;
+    }
 
-
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
+    }
 }

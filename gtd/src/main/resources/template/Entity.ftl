@@ -1,4 +1,4 @@
-package org.ageadoc.gtd.hibernate.entity;
+package ${PackageName};
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;

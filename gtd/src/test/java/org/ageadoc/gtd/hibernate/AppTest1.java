@@ -301,7 +301,7 @@ public class AppTest1 extends TestCase{
     public void testNewEmployeeEntity1() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        NewEmployeeEntity entity = new NewEmployeeEntity();
+        NewEmployee entity = new NewEmployee();
         entity.setFname("yyds");
         entity.setLname("yyds");
         entity.setMinit("F");
@@ -314,9 +314,12 @@ public class AppTest1 extends TestCase{
     public void testNewEmployeeEntity2() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List result = session.createQuery( "from NewEmployeeEntity" ).list();
-        for ( NewEmployeeEntity entity : (List<NewEmployeeEntity>) result ) {
-            System.out.println( entity.getIdNum()+", Fname (" + entity.getFname() + ") : " + entity.getLname()  + "," + entity.getMinit());
+        List result = session.createQuery( "from NewEmployee" ).list();
+        for ( NewEmployee entity : (List<NewEmployee>) result ) {
+            System.out.println("EMP: "+ entity.getIdNum()+", Fname (" + entity.getFname() + ") : " + entity.getLname()  + "," + entity.getMinit());
+            for(Address addr : entity.getAddresses()){
+                System.out.println("\tADDR: "+addr.getAddrId()+"," + addr.getAddress());
+            }
         }
         session.getTransaction().commit();
         session.close();
@@ -335,8 +338,9 @@ public class AppTest1 extends TestCase{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List result = session.createQuery( "from Address" ).list();
-        for ( Address entity : (List<Address>) result ) {
-            System.out.println( entity.getAddrId()+"," + entity.getAddress());
+        for ( Address address : (List<Address>) result ) {
+            System.out.println("ADDR: "+address.getAddrId()+"," + address.getAddress());
+            System.out.println("\tEMP: "+address.getEmployee().getFname());
         }
         session.getTransaction().commit();
         session.close();

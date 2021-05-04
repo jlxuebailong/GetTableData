@@ -42,8 +42,7 @@ public class AppTest2 extends TestCase {
     @Test
     public void testGenNewEmployee() throws IOException {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("type", "String");
-        map.put("name", "testName");
+        map.put("PackageName", "org.ageadoc.gtd.hibernate.entity");
 
         List<EntityField> fieldList = new ArrayList<>();
         fieldList.add(new EntityPrimary(ColumnType.NUMBER, "idNum", "id_num",   GenerationType.IDENTITY, null));
@@ -55,7 +54,7 @@ public class AppTest2 extends TestCase {
         fieldList.add(field2);
         map.put("fieldList", fieldList);
 
-        String className = "NewEmployeeEntity";
+        String className = "NewEmployee";
 
         map.put("TableName","new_employees");
         map.put("ClassName", className);
@@ -66,7 +65,7 @@ public class AppTest2 extends TestCase {
         // 模板名称
         String templateFile = "Entity.ftl";
         // 模板生成后存放目录
-        String targetPath = "D:\\Workspaces\\GetTableData\\gtd\\src\\main\\java\\org\\hibernate\\tutorials\\entity";
+        String targetPath = "D:\\Workspaces\\GetTableData\\gtd\\src\\main\\java\\org\\ageadoc\\gtd\\hibernate\\entity";
         // 模板生成后新文件名
         String fileName = className + ".java";
         // 创建文件夹
@@ -107,7 +106,7 @@ public class AppTest2 extends TestCase {
         EntityField address = new EntityField(ColumnType.NVARCHAR, "address", "ADDRESS", true);
         address.setLength(250);
         fieldList.add(address);
-
+        map.put("PackageName", "org.ageadoc.gtd.hibernate.entity");
         map.put("fieldList", fieldList);
 
         String className = "Address";
