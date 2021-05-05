@@ -14,6 +14,14 @@ public class EntityField {
         this.nullable = nullable;
     }
 
+    public EntityField(ColumnType columnType, Integer len, String name, String columnName, Boolean nullable){
+        this.columnType = columnType;
+        this.length = len;
+        this.name = name;
+        this.columnName = columnName;
+        this.nullable = nullable;
+    }
+
     public ColumnType getColumnType() {
         return columnType;
     }

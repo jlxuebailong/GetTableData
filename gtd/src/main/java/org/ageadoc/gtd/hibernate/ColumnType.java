@@ -4,7 +4,7 @@ public enum ColumnType {
     CHAR,
     NVARCHAR,
     VARCHAR,
-    NUMBER,
+    INT,
     BIGINT,
     IMAGE;
 

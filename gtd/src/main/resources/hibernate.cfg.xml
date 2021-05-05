@@ -45,6 +45,11 @@
         <mapping class="org.ageadoc.gtd.hibernate.entity.NewEmployee"/>
         <mapping class="org.ageadoc.gtd.hibernate.entity.Address"/>
 
+        <mapping class="org.ageadoc.gtd.cfg.entity.CfgTable"/>
+        <mapping class="org.ageadoc.gtd.cfg.entity.CfgTableColumn"/>
+        <mapping class="org.ageadoc.gtd.cfg.entity.CfgTableRelation"/>
+        <mapping class="org.ageadoc.gtd.cfg.entity.CfgTableRelJoin"/>
+
     </session-factory>
 
 </hibernate-configuration>

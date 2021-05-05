@@ -45,7 +45,7 @@ public class AppTest2 extends TestCase {
         map.put("PackageName", "org.ageadoc.gtd.hibernate.entity");
 
         List<EntityField> fieldList = new ArrayList<>();
-        fieldList.add(new EntityPrimary(ColumnType.NUMBER, "idNum", "id_num",   GenerationType.IDENTITY, null));
+        fieldList.add(new EntityPrimary(ColumnType.INT, "idNum", "id_num",   GenerationType.IDENTITY, null));
         fieldList.add(new EntityField(ColumnType.VARCHAR, "fname", "fname", true));
         fieldList.add(new EntityField(ColumnType.CHAR, "minit", "minit", true));
         fieldList.add(new EntityField(ColumnType.CHAR, "nnn", "nnn", true));
@@ -102,7 +102,7 @@ public class AppTest2 extends TestCase {
         Map<String, Object> map = new HashMap<String, Object>();
 
         List<EntityField> fieldList = new ArrayList<>();
-        fieldList.add(new EntityPrimary(ColumnType.NUMBER, "addrId", "ADDRID",   GenerationType.SEQUENCE, "SEQ_ADDRESS"));
+        fieldList.add(new EntityPrimary(ColumnType.INT, "addrId", "ADDRID",   GenerationType.SEQUENCE, "SEQ_ADDRESS"));
         EntityField address = new EntityField(ColumnType.NVARCHAR, "address", "ADDRESS", true);
         address.setLength(250);
         fieldList.add(address);

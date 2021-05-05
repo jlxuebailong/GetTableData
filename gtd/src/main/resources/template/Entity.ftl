@@ -21,6 +21,9 @@ public class ${ClassName} {
     <#if field.strategyType?? && field.strategyType.name() == "IDENTITY">
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     </#if>
+    <#if field.strategyType?? && field.strategyType.name() == "AUTO">
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    </#if>
     </#if>
     @Column(name = "${field.columnName}", nullable = ${field.nullable?string('true', 'false')}<#if field.length??>, length = ${field.length}</#if><#if field.columnType?? && field.columnType.name() == "CHAR" >, columnDefinition = "char"</#if><#if field.columnType?? && field.columnType.name() == "NVARCHAR" >, columnDefinition = "nvarchar"</#if><#if field.columnType?? && field.columnType.name() == "IMAGE" >, columnDefinition = "image"</#if>)
     public ${field.type} get${field.name?cap_first}() {
