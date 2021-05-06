@@ -33,7 +33,7 @@ public class Address {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "EMP_ID", nullable = false)
+    @JoinColumn(name = "EMP_ID", nullable = false, referencedColumnName="EMP_NUM")
     public NewEmployee getEmployee(){
         return  this.employee;
     }

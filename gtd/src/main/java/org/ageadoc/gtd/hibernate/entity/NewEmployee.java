@@ -2,18 +2,20 @@ package org.ageadoc.gtd.hibernate.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "new_employees")
-public class NewEmployee {
+public class NewEmployee implements Serializable {
 
     private Integer idNum;
     private String fname;
     private String minit;
     private String nnn;
     private String lname;
+    private Integer empNum;
     private Set<Address> addresses = new HashSet<>();
 
     @Id
@@ -62,6 +64,16 @@ public class NewEmployee {
     public void setLname(String lname) {
         this.lname = lname;
     }
+
+    @Column(name = "emp_num", nullable = false, length = 100)
+    public Integer getEmpNum() {
+        return this.empNum;
+    }
+
+    public void setEmpNum(Integer empNum) {
+        this.empNum = empNum;
+    }
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
     public Set<Address> getAddresses() {

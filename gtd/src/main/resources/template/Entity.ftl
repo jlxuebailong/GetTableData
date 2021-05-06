@@ -1,11 +1,12 @@
 package ${PackageName};
 
+import java.io.Serializable;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "${TableName}"<#if uniqueColumnName??>, uniqueConstraints = { @UniqueConstraint(columnNames = { "${uniqueColumnName}" }) } </#if>)
-public class ${ClassName} {
+public class ${ClassName} implements Serializable {
 
 <#list fieldList as field>
     private ${field.type} ${field.name};
