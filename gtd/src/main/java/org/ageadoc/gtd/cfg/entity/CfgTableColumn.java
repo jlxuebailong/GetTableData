@@ -1,6 +1,8 @@
 package org.ageadoc.gtd.cfg.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,11 +12,16 @@ public class CfgTableColumn {
     private Long id;
     private CfgTable table;
     private String columnName;
-    private String isPrimary;
+    private Boolean isPrimary;
     private String columnType;
     private Integer columnLength;
     private String defaultValue;
     private String columnDesc;
+
+    private String genStrategy;
+    private String seqName;
+    private Boolean isNullable;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,12 +54,23 @@ public class CfgTableColumn {
     }
 
     @Column(name = "COL_PRIMARY", nullable = true, length = 1, columnDefinition = "char")
-    public String getIsPrimary() {
-        return this.isPrimary;
+    @Type(type="yes_no")
+    public Boolean getPrimary() {
+        return isPrimary;
     }
 
-    public void setIsPrimary(String isPrimary) {
-        this.isPrimary = isPrimary;
+    public void setPrimary(Boolean primary) {
+        isPrimary = primary;
+    }
+
+    @Column(name = "COL_NULLABLE", nullable = true, length = 1, columnDefinition = "char")
+    @Type(type="yes_no")
+    public Boolean getNullable() {
+        return isNullable;
+    }
+
+    public void setNullable(Boolean nullable) {
+        isNullable = nullable;
     }
 
     @Column(name = "COL_TYPE", nullable = true)
@@ -91,6 +109,22 @@ public class CfgTableColumn {
         this.columnDesc = columnDesc;
     }
 
+    @Column(name = "COL_GENSTRA", nullable = true, columnDefinition = "char")
+    public String getGenStrategy() {
+        return genStrategy;
+    }
 
+    public void setGenStrategy(String genStrategy) {
+        this.genStrategy = genStrategy;
+    }
+
+    @Column(name = "COL_SEQNAME", nullable = true)
+    public String getSeqName() {
+        return seqName;
+    }
+
+    public void setSeqName(String seqName) {
+        this.seqName = seqName;
+    }
 
 }

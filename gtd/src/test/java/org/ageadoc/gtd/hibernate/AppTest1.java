@@ -25,7 +25,7 @@ public class AppTest1 extends TestCase{
 
     @Override
     protected void setUp() throws Exception {
-        // A SessionFactory is set up once for an application!
+        // A SessionFactoryUtil is set up once for an application!
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure() // configures settings from hibernate.cfg.xml
                 .build();
@@ -34,7 +34,7 @@ public class AppTest1 extends TestCase{
         }
         catch (Exception e) {
             e.printStackTrace();
-            // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
+            // The registry would be destroyed by the SessionFactoryUtil, but we had trouble building the SessionFactoryUtil
             // so destroy it manually.
             StandardServiceRegistryBuilder.destroy( registry );
         }
@@ -328,8 +328,17 @@ public class AppTest1 extends TestCase{
     public void testAddressEntity1() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
+        NewEmployee emp = new NewEmployee();
+        emp.setFname("男");
+        emp.setLname("生");
+        emp.setMinit("F");
+        emp.setNnn("性趣");
+        emp.setEmpNum(11);
+        session.persist(emp);
+
         Address address = new Address();
-        address.setAddress("哥哥在客厅打游戏");
+        address.setAddress("不太需要");
+        address.setEmployee(emp);
         session.persist(address);
         session.getTransaction().commit();
         session.close();

@@ -37,6 +37,8 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">validate</property>
 
+        <mapping  class="org.ageadoc.gtd.hibernate.entity.Department"/>
+
         <!-- Names the annotated entity class -->
         <mapping class="org.ageadoc.gtd.hibernate.entity.Department"/>
         <mapping class="org.ageadoc.gtd.hibernate.entity.Employee"/>

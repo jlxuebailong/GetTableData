@@ -15,6 +15,8 @@ public class CfgTableRelation {
     private String relationDesc;
     private String typeLeft;
     private String typeRight;
+    private String fetchType;
+
     private Set<CfgTableRelJoin> tableRelJoins = new HashSet<>();
 
     @Id
@@ -78,6 +80,15 @@ public class CfgTableRelation {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "tableRelation")
     public Set<CfgTableRelJoin> getTableRelJoins() {
         return tableRelJoins;
+    }
+
+    @Column(name = "REL_FETCHTYPE", nullable = true, length = 1, columnDefinition = "char")
+    public String getFetchType() {
+        return fetchType;
+    }
+
+    public void setFetchType(String fetchType) {
+        this.fetchType = fetchType;
     }
 
     public void setTableRelJoins(Set<CfgTableRelJoin> tableRelJoins) {
