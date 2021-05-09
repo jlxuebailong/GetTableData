@@ -57,15 +57,56 @@ public class CfgTest extends TestCase{
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List result = session.createQuery( "from CfgTable" ).list();
-        for ( CfgTable cfg : (List<CfgTable>) result ) {
-            System.out.println( cfg.getClassName() );
-            for(CfgTableColumn col : cfg.getCfgTableColumns()){
-               System.out.println("\t" + col.getColumnName() );
-               if(col.getColumnName().equals("ColA")){
+
+        for ( CfgTable tbl : (List<CfgTable>) result ) {
+            System.out.println( tbl.getClassName() );
+            if(tbl.getId() == 1){
+
+            }
+
+            if(tbl.getId() == 2){
+                CfgTableColumn col1 = new CfgTableColumn();
+                col1.setColumnName("id");
+                col1.setColumnType("bigint");
+                col1.setColumnLength(null);
+                col1.setPrimary(true);
+                col1.setGenStrategy("2");
+                col1.setNullable(false);
+                col1.setClassFieldName("id");
+                col1.setClassFileType("long");
+                col1.setTable(tbl);
+                session.saveOrUpdate(col1);
+
+                CfgTableColumn col2 = new CfgTableColumn();
+                col2.setColumnName("dept_num");
+                col2.setColumnType("varchar");
+                col2.setColumnLength(255);
+                col2.setPrimary(false);
+                col2.setGenStrategy(null);
+                col2.setNullable(true);
+                col2.setClassFieldName("deptNum");
+                col2.setClassFileType("string");
+                col2.setTable(tbl);
+                session.saveOrUpdate(col2);
+
+                CfgTableColumn col3 = new CfgTableColumn();
+                col3.setColumnName("emp_name");
+                col3.setColumnType("varchar");
+                col3.setColumnLength(100);
+                col3.setPrimary(false);
+                col3.setGenStrategy(null);
+                col3.setNullable(true);
+                col3.setClassFieldName("empName");
+                col3.setClassFileType("string");
+                col3.setTable(tbl);
+                session.saveOrUpdate(col3);
+            }
+            for(CfgTableColumn col : tbl.getCfgTableColumns()){
+               System.out.println("\t" + col.getColumnName() + ", " + col.getId());
+               //修改某一列的值
+               if( col.getId() == 3 ){
                     System.out.println("\t-------"+col.getColumnType());
-                    col.setPrimary(true);
-                    col.setGenStrategy("2");
-                    col.setNullable(false);
+                    col.setColumnName("dept_num");
                     session.update(col);
                }
             }
@@ -151,16 +192,18 @@ public class CfgTest extends TestCase{
     public void testCfgTableRelationJoinCreate() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        Query query = session.createQuery( "from CfgTableColumn where columnName=:columnName" );
-        query.setParameter("columnName", "ColA");
+        Query query = session.createQuery( "from CfgTableColumn where table.tableName=:tbname and columnName=:columnName" );
+        query.setParameter("tbname", "TB_DEPART");
+        query.setParameter("columnName", "dept_num");
         Object object = query.getSingleResult();
         CfgTableColumn columnLeft = null;
         if(object != null){
             columnLeft = (CfgTableColumn)object;
         }
 
-        query = session.createQuery( "from CfgTableColumn where columnName=:columnName" );
-        query.setParameter("columnName", "ColB");
+        query = session.createQuery( "from CfgTableColumn where table.tableName=:tbname and columnName=:columnName" );
+        query.setParameter("tbname", "TB_EMPLOYEE");
+        query.setParameter("columnName", "dept_num");
         object = query.getSingleResult();
         CfgTableColumn columnRight = null;
         if(object != null){
@@ -179,7 +222,8 @@ public class CfgTest extends TestCase{
         cfg.setTableRelation(relation);
         cfg.setColumnLeft(columnLeft);
         cfg.setColumnRight(columnRight);
-        session.save(cfg);
+        session.saveOrUpdate(cfg);
+
         session.getTransaction().commit();
         session.close();
     }

@@ -22,6 +22,9 @@ public class CfgTableColumn {
     private String seqName;
     private Boolean isNullable;
 
+    private String classFieldName;
+    private String classFileType;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,4 +130,21 @@ public class CfgTableColumn {
         this.seqName = seqName;
     }
 
+    @Column(name = "CLS_FIELDNAME", nullable = true)
+    public String getClassFieldName() {
+        return classFieldName;
+    }
+
+    public void setClassFieldName(String classFieldName) {
+        this.classFieldName = classFieldName;
+    }
+
+    @Column(name = "CLS_TYPE", nullable = true)
+    public String getClassFileType() {
+        return classFileType;
+    }
+
+    public void setClassFileType(String classFileType) {
+        this.classFileType = classFileType;
+    }
 }
