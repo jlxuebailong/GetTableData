@@ -2,22 +2,22 @@ package org.ageadoc.gtd.hibernate;
 
 public class EntityField {
     private ColumnType columnType;
-    private String name;
+    private String fieldName;
     private String columnName;
     private Integer length;
     private Boolean nullable = true;
 
-    public EntityField(ColumnType columnType, String name, String columnName, Boolean nullable){
+    public EntityField(ColumnType columnType, String fieldName, String columnName, Boolean nullable){
         this.columnType = columnType;
-        this.name = name;
+        this.fieldName = fieldName;
         this.columnName = columnName;
         this.nullable = nullable;
     }
 
-    public EntityField(ColumnType columnType, Integer len, String name, String columnName, Boolean nullable){
+    public EntityField(ColumnType columnType, Integer len, String fieldName, String columnName, Boolean nullable){
         this.columnType = columnType;
         this.length = len;
-        this.name = name;
+        this.fieldName = fieldName;
         this.columnName = columnName;
         this.nullable = nullable;
     }
@@ -30,31 +30,31 @@ public class EntityField {
         this.columnType = columnType;
     }
 
-    public String getType() {
-        String type = "String";
+    public String getFieldType() {
+        String fieldType = "String";
         switch (columnType.ordinal()){
             case 0:
             case 1:
             case 2:
                 break;
             case 3:
-                type = "Integer";
+                fieldType = "Integer";
                 break;
             case 4:
-                type = "Long";
+                fieldType = "Long";
                 break;
             default:
-                type = columnType.name();
+                fieldType = columnType.name();
         }
-        return type;
+        return fieldType;
     }
 
-    public String getName() {
-        return name;
+    public String getFieldName() {
+        return fieldName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
     }
 
     public String getColumnName() {

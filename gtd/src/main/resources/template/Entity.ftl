@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class ${ClassName} implements Serializable {
 
 <#list fieldList as field>
-    private ${field.type} ${field.name};
+    private ${field.fieldType} ${field.fieldName};
 </#list>
 
 <#list fieldList as field>
@@ -27,12 +27,12 @@ public class ${ClassName} implements Serializable {
     </#if>
     </#if>
     @Column(name = "${field.columnName}", nullable = ${field.nullable?string('true', 'false')}<#if field.length??>, length = ${field.length}</#if><#if field.columnType?? && field.columnType.name() == "CHAR" >, columnDefinition = "char"</#if><#if field.columnType?? && field.columnType.name() == "NVARCHAR" >, columnDefinition = "nvarchar"</#if><#if field.columnType?? && field.columnType.name() == "IMAGE" >, columnDefinition = "image"</#if>)
-    public ${field.type} get${field.name?cap_first}() {
-        return this.${field.name};
+    public ${field.fieldType} get${field.fieldName?cap_first}() {
+        return this.${field.fieldName};
     }
 
-    public void set${field.name?cap_first}(${field.type} ${field.name}) {
-        this.${field.name} = ${field.name};
+    public void set${field.fieldName?cap_first}(${field.fieldType} ${field.fieldName}) {
+        this.${field.fieldName} = ${field.fieldName};
     }
 
 </#list>
