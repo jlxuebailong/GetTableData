@@ -80,4 +80,16 @@ public class EntityField {
     public void setNullable(Boolean nullable) {
         this.nullable = nullable;
     }
+
+    @Override
+    public String toString() {
+        return "EntityField{" +
+                "columnType=" + columnType +
+                ", fieldName='" + fieldName + '\'' +
+                ", fieldType='" + getFieldType() + '\'' +
+                ", columnName='" + columnName + '\'' +
+                ", length=" + length +
+                ", nullable=" + nullable +
+                '}';
+    }
 }
